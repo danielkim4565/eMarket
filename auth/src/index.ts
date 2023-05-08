@@ -16,7 +16,12 @@ app.use('/api/users/signup', signupRouter);
 app.use('/api/users/currentuser', currentuserRouter);
 
 app.all('*', async (req, res) => {
-    console.log(await PostgresDataSource.manager.query(`SELECT * FROM Users`));
+    try {
+        console.log(await PostgresDataSource.manager.query(`SELECT * FROM users WHERE email = 'test'`));
+    } catch (err) {
+        console.log(err);
+    }
+    
     throw new NotFoundError();
 })
 
