@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 
 export class PasswordManager {
     static encrypt(password: string): string {
