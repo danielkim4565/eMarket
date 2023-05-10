@@ -36,7 +36,7 @@ router.post(
         }
         const token = jwt.sign(payload, process.env.JWT_SECRET_KEY!, { expiresIn: '1h' });
         req.session!.jwt = token;
-        res.send('User Created!');
+        res.send('User Created');
     }
 );
 

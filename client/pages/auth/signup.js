@@ -32,14 +32,17 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function SignUp() {
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
     const router = useRouter();
     const { doFetch, errors } = useFetch({
-        url: `http://${process.env.NEXT_PUBLIC_API_ADDRESS}/api/users/signin`, 
+        url: `http://${process.env.NEXT_PUBLIC_API_ADDRESS}/api/users/signup`, 
         method: 'post', 
-        body: `{email: ${email}, password: ${password}}`, 
+        body: {
+            email: email, 
+            password: password
+        }, 
         onSuccess: () => router.push('/')
     })
 
@@ -50,10 +53,18 @@ export default function SignIn() {
             password: password,
         }
         console.log(body);
-        // const response = await doFetch()
-        console.log(await doFetch())
-        console.log(errors)
-        console.log(await axios.get('http://20.220.82.58/api/users/currentuser'))
+        console.log(await doFetch());
+        console.log(errors?.response.data)
+        // axios.post(`http://${process.env.NEXT_PUBLIC_API_ADDRESS}/api/users/signup`, {
+        //     email: email, 
+        //     password: password
+        // })
+        // .then(response => {
+        //   console.log(response.data);
+        // })
+        // .catch(error => {
+        //   console.error(error);
+        // });
     };
 
     return (
@@ -72,7 +83,7 @@ export default function SignIn() {
                 <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-                Sign in
+                Sign up
             </Typography>
             <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                 <TextField
@@ -109,7 +120,7 @@ export default function SignIn() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
                 >
-                Sign In
+                Register
                 </Button>
                 <Grid container>
                 <Grid item xs>

@@ -8,6 +8,7 @@ import { PostgresDataSource } from './db/db'
 import cookieSession from 'cookie-session'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv';
+import { signinRouter } from './routes/signin';
 
 dotenv.config();
 
@@ -21,15 +22,9 @@ app.use(cookieSession({
 app.use(express.json());
 
 app.use('/api/users/signup', signupRouter);
+app.use('/api/users/signin', signinRouter);
 app.use('/api/users/currentuser', currentuserRouter);
 app.all('*', async (req, res) => {
-    try {
-        console.log(await PostgresDataSource.manager.query(`SELECT * FROM Users`));
-        console.log(await PostgresDataSource.manager.query(`SELECT * FROM Users WHERE email = 'test@test.com'`));
-    } catch (err) {
-        console.log(err);
-    }
-    
     throw new NotFoundError();
 })
 

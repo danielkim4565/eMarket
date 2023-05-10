@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-export default useFetch = ({url, method, body, onSuccess}) => {
+export const useFetch = ({url, method, body, onSuccess}) => {
     const [errors, setErrors] = useState(null);
 
     const doFetch = async () => {
