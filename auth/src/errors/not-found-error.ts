@@ -7,7 +7,7 @@ export class NotFoundError extends CustomError {
         super('Not Found Error');
     }
 
-    serializeErrors(): { message: string; field?: string | undefined; }[] {
+    serializeErrors() {
         return [{ message: 'Not Found' }];
     }
 }
