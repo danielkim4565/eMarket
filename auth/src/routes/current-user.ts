@@ -1,13 +1,10 @@
 import express from "express";
-import { validateRequest } from "../middleware/validate-request";
-import currentUser from "../middleware/current-user";
-import { requireAuth } from "../middleware/require-auth";
+import jwt from 'jsonwebtoken';
+import { validateRequest, requireAuth, currentUser} from "@emarketproject/common";
 
 const router = express.Router();
 
-router.get('', 
-    currentUser,
-    requireAuth,
+router.get('/api/users/currentuser', 
     (req, res) => {
         res.send({ currentUser: req.currentUser || null});
     } 

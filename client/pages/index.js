@@ -1,5 +1,5 @@
 
 
 export default () => {
-    return <h1>Front page</h1>
+    return <h1>Front Page</h1>
 }
