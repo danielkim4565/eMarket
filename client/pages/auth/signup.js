@@ -15,7 +15,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react'
 import { useFetch } from '../../hooks/use-fetch'
 import { useRouter } from 'next/router';
+import { Alert } from '@mui/material';
 import axios from 'axios'
+import PersonIcon from '@mui/icons-material/Person';
 
 function Copyright(props) {
   return (
@@ -54,7 +56,7 @@ export default function SignUp() {
         }
         console.log(body);
         console.log(await doFetch());
-        console.log(errors?.response.data)
+        //console.log(errors?.response.data)
         // axios.post(`http://${process.env.NEXT_PUBLIC_API_ADDRESS}/api/users/signup`, {
         //     email: email, 
         //     password: password
@@ -80,11 +82,12 @@ export default function SignUp() {
             }}
             >
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                <LockOutlinedIcon />
+                <PersonIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
                 Sign up
             </Typography>
+            {errors}
             <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                 <TextField
                 margin="normal"
@@ -110,10 +113,6 @@ export default function SignUp() {
                 value = {password}
                 onChange = {(e) => setPassword(e.target.value)}
                 />
-                <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-                />
                 <Button
                 type="submit"
                 fullWidth
@@ -124,13 +123,10 @@ export default function SignUp() {
                 </Button>
                 <Grid container>
                 <Grid item xs>
-                    <Link href="#" variant="body2">
-                    Forgot password?
-                    </Link>
                 </Grid>
                 <Grid item>
                     <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
+                    {"Already have an account? Sign in"}
                     </Link>
                 </Grid>
                 </Grid>

@@ -9,6 +9,7 @@ import cookieSession from 'cookie-session'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv';
 import { signinRouter } from './routes/signin';
+import { signoutRouter } from './routes/signout'
 
 dotenv.config();
 
@@ -23,7 +24,8 @@ app.use(express.json());
 
 app.use('/api/users/signup', signupRouter);
 app.use('/api/users/signin', signinRouter);
-app.use('/api/users/currentuser', currentuserRouter);
+app.use('/api/users/signout', signoutRouter);
+app.use('/api/users/currentUser', currentuserRouter);
 app.all('*', async (req, res) => {
     throw new NotFoundError();
 })
