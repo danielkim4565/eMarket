@@ -1,28 +1,27 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import 'express-async-errors';
 import { Result, ValidationError, body, check, validationResult } from 'express-validator';
-import { RequestValidationError } from '../errors/validation-error';
+import { RequestValidationError, BadRequestError, validateRequest } from '@emarketproject/common';
 import { PostgresDataSource, Users } from '../db/db';
 import { User } from '../services/user';
 import { PasswordManager } from '../services/passwordManager';
-import { BadRequestError } from '../errors/bad-request-error';
 import jwt from 'jsonwebtoken'
-import { validateRequest } from '../middleware/validate-request'
 
 const router = express.Router();
 
 router.post(
-    '', 
-    body('email')
-        .isEmail()
-        .withMessage('Invalid Email'),
-    body('password')
-        .trim()
-        .isLength({ min: 5 })
-        .withMessage('Invalid Password'), 
+    '/api/users/signup', 
+    [
+        body('email')
+            .isEmail()
+            .withMessage('Invalid Email'),
+        body('password')
+            .trim()
+            .isLength({ min: 5 })
+            .withMessage('Invalid Password')
+    ], 
     validateRequest,
-    async (req, res) => {
-
+    async (req: Request, res: Response ) => {
         const users = await User.getUsers(req.body.email)
         if (users.length == 0) {
             await User.addUser(req.body.email, PasswordManager.encrypt(req.body.password));
@@ -35,8 +34,10 @@ router.post(
             email: req.body.email
         }
         const token = jwt.sign(payload, process.env.JWT_SECRET_KEY!, { expiresIn: '1h' });
-        req.session!.jwt = token;
-        res.send('User Created');
+        req.session = { 
+            jwt: token 
+        };
+        res.status(201).send(currentUsers[0]);
     }
 );
 
