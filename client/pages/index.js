@@ -1,5 +1,14 @@
+import axios from 'axios';
 
-
-export default () => {
-    return <h1>Front page</h1>
+export const frontPage = () => {
+    
+    return (
+        <div>
+            <h1>Front page</h1>
+        </div>
+    )
 }
+
+
+
+export default frontPage

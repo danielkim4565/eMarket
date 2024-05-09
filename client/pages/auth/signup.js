@@ -37,7 +37,7 @@ export default function SignUp() {
     const [ password, setPassword ] = useState("");
     const router = useRouter();
     const { doFetch, errors } = useFetch({
-        url: `http://${process.env.NEXT_PUBLIC_API_ADDRESS}/api/users/signup`, 
+        url: `/api/users/signup`, 
         method: 'post', 
         body: {
             email: email, 

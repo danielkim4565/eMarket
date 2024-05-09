@@ -37,7 +37,7 @@ export default function SignIn() {
     const [ password, setPassword ] = useState("");
     const router = useRouter();
     const { doFetch, errors } = useFetch({
-        url: `http://${process.env.NEXT_PUBLIC_API_ADDRESS}/api/users/signin`, 
+        url: `/api/users/signin`, 
         method: 'post', 
         body: `{email: ${email}, password: ${password}}`, 
         onSuccess: () => router.push('/')
