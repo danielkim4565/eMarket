@@ -1,11 +1,13 @@
 import express, { Request, Response } from 'express';
 import 'express-async-errors';
 import { Result, ValidationError, body, check, validationResult } from 'express-validator';
-import { RequestValidationError, BadRequestError, validateRequest } from '@emarketproject/common';
+import { RequestValidationError } from '../errors/validation-error';
 import { PostgresDataSource, Users } from '../db/db';
 import { User } from '../services/user';
 import { PasswordManager } from '../services/passwordManager';
+import { BadRequestError } from '../errors/bad-request-error';
 import jwt from 'jsonwebtoken'
+import { validateRequest } from '../middleware/validate-request'
 
 const router = express.Router();
 

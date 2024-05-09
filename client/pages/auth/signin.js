@@ -39,10 +39,7 @@ export default function SignIn() {
     const { doFetch, errors } = useFetch({
         url: `/api/users/signin`, 
         method: 'post', 
-        body: {
-            email: email, 
-            password: password
-        },
+        body: `{email: ${email}, password: ${password}}`, 
         onSuccess: () => router.push('/')
     })
 
@@ -53,7 +50,10 @@ export default function SignIn() {
             password: password,
         }
         console.log(body);
-        await doFetch()
+        // const response = await doFetch()
+        console.log(await doFetch())
+        console.log(errors)
+        console.log(await axios.get('http://20.220.82.58/api/users/currentuser'))
     };
 
     return (
@@ -75,7 +75,6 @@ export default function SignIn() {
                 Sign in
             </Typography>
             <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                {errors}
                 <TextField
                 margin="normal"
                 required
