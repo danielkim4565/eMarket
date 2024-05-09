@@ -11,7 +11,7 @@ import jwt from 'jsonwebtoken'
 const router = express.Router();
 
 router.post(
-    '', 
+    '/api/users/signin', 
     body('email')
         .isEmail()
         .withMessage('Email must be valid'),
@@ -29,7 +29,9 @@ router.post(
                 email: req.body.email
             }
             const token = jwt.sign(payload, process.env.JWT_SECRET_KEY!, { expiresIn: '1h' });
-            req.session!.jwt = token;
+            req.session = { 
+                jwt: token 
+            };
             res.send('Loggedin');
         } else {
             throw new BadRequestError('Incorrect Email or Password')
