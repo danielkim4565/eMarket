@@ -10,6 +10,7 @@ export const useFetch = ({url, method, body, onSuccess}) => {
         try {
             setErrors(null);
             const response = await axios[method](url, body);
+            onSuccess(response.data);
             return response.data;
         } catch(err) {
             if (Object.hasOwn(err, 'response')) {
