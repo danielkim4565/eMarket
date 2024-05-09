@@ -37,9 +37,12 @@ export default function SignIn() {
     const [ password, setPassword ] = useState("");
     const router = useRouter();
     const { doFetch, errors } = useFetch({
-        url: `http://${process.env.NEXT_PUBLIC_API_ADDRESS}/api/users/signin`, 
+        url: `/api/users/signin`, 
         method: 'post', 
-        body: `{email: ${email}, password: ${password}}`, 
+        body: {
+            email: email, 
+            password: password
+        },
         onSuccess: () => router.push('/')
     })
 
@@ -50,10 +53,7 @@ export default function SignIn() {
             password: password,
         }
         console.log(body);
-        // const response = await doFetch()
-        console.log(await doFetch())
-        console.log(errors)
-        console.log(await axios.get('http://20.220.82.58/api/users/currentuser'))
+        await doFetch()
     };
 
     return (
@@ -75,6 +75,7 @@ export default function SignIn() {
                 Sign in
             </Typography>
             <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                {errors}
                 <TextField
                 margin="normal"
                 required
